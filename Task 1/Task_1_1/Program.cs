@@ -54,11 +54,8 @@ namespace Task_1_1
         {
             Console.WriteLine("Введите стороны прямоугольника");
 
-            Console.Write("a: ");
-            int a = int.Parse(Console.ReadLine());
-
-            Console.Write("b: ");
-            int b = int.Parse(Console.ReadLine());
+            int a = GetNumberFromUser("a: ");
+            int b = GetNumberFromUser("b: ");
 
             if (a > 0 && b > 0)
             {
@@ -68,6 +65,16 @@ namespace Task_1_1
             {
                 Console.WriteLine("Ошибка: стороны треугольника должны быть положительными!");
             }
+        }
+
+        private static int GetNumberFromUser(string message)
+        {
+            int result;
+            do
+            {
+                Console.Write(message);
+            } while (int.TryParse(Console.ReadLine(), out result) == false);
+            return result;
         }
 
         private static double CalculateArea(double a, double b) => a * b;
