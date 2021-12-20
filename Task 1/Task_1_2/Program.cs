@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
-namespace Task_1_1
+namespace Task_1_2
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("\nВыберите номер задания 1 - 10: ");
+            Console.WriteLine("\nВыберите номер задания 1 - 4: ");
             int selectedNumber = int.Parse(Console.ReadLine());
             Console.WriteLine($"\nTask 1.2.{selectedNumber} :");
             switch (selectedNumber)
@@ -25,24 +22,6 @@ namespace Task_1_1
                     break;
                 case 4:
                     RunTask4();
-                    break;
-                case 5:
-                    RunTask5();
-                    break;
-                case 6:
-                    RunTask6();
-                    break;
-                case 7:
-                    RunTask7();
-                    break;
-                case 8:
-                    RunTask8();
-                    break;
-                case 9:
-                    RunTask9();
-                    break;
-                case 10:
-                    RunTask10();
                     break;
                 default:
                     return;
@@ -85,47 +64,71 @@ namespace Task_1_1
 
         public static void RunTask2()
         {
-            throw new NotImplementedException();
+            Console.Write("ВВОД 1: ");
+            string text = Console.ReadLine();
+
+            Console.Write("ВВОД 2: ");
+            var symbols = Console.ReadLine().ToArray();
+
+            var builder = new StringBuilder(text);
+            for (int i = 0; i < builder.Length; i++)
+            {
+                if (symbols.Contains(builder[i]))
+                {
+                    builder.Insert(i, builder[i]);
+                    i++;
+                }
+            }
+
+            text = builder.ToString();
+            Console.WriteLine("ВЫВОД: " + text);
         }
 
         public static void RunTask3()
         {
-            throw new NotImplementedException();
+            Console.Write("ВВОД: ");
+            string text = DeletePunctuation(Console.ReadLine());
+
+            int wordLowerCase = text.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Count(word => char.IsLower(word[0]));
+
+            Console.WriteLine("ВЫВОД: " + wordLowerCase);
         }
 
         public static void RunTask4()
         {
-            throw new NotImplementedException();
+            
+            Console.Write("ВВОД: ");
+            string text = Console.ReadLine();
+
+            text = CapitalLettersToUpper(text);
+
+            Console.WriteLine("ВЫВОД: " + text);
         }
 
-        public static void RunTask5()
+        private static string CapitalLettersToUpper(string text)
         {
-            throw new NotImplementedException();
-        }
+            var punctuationSentenceEndings = new char[] { '.', '?', '!' };
+            var builder = new StringBuilder(text);
 
-        public static void RunTask6()
-        {
-            throw new NotImplementedException();
-        }
+            if (builder.Length > 0 && char.IsLower(builder[0]))
+                builder[0] = char.ToUpper(builder[0]);
 
-        public static void RunTask7()
-        {
-            throw new NotImplementedException();
-        }
+            for (int i = 1; i < builder.Length; i++)
+            {   
+                if (punctuationSentenceEndings.Contains(builder[i]))
+                {
+                    while (!char.IsLetter(builder[i]))
+                    {
+                        if (++i == builder.Length)
+                            return builder.ToString();
+                    }
 
-        public static void RunTask8()
-        {
-            throw new NotImplementedException();
-        }
+                    builder[i] = char.ToUpper(builder[i]);
+                }
+            }
 
-        public static void RunTask9()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void RunTask10()
-        {
-            throw new NotImplementedException();
+            return builder.ToString();
         }
     }
 }
