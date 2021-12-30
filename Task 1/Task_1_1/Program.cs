@@ -54,8 +54,8 @@ namespace Task_1_1
         {
             Console.WriteLine("Введите стороны прямоугольника");
 
-            int a = GetNumberFromUser("a: ");
-            int b = GetNumberFromUser("b: ");
+            int a = GetConsoleIntValue("a: ");
+            int b = GetConsoleIntValue("b: ");
 
             if (a > 0 && b > 0)
             {
@@ -67,7 +67,7 @@ namespace Task_1_1
             }
         }
 
-        private static int GetNumberFromUser(string message)
+        private static int GetConsoleIntValue(string message)
         {
             int result;
             do
