@@ -5,25 +5,74 @@ namespace String
 {
     public class CharacterString : IComparable<CharacterString>, IEquatable<CharacterString>
     {
-        private char[] symbols;
+        private char[] _symbols;
 
         private static CompareInfo compareInfo = CultureInfo.InvariantCulture.CompareInfo;
 
-        public int Length => symbols.Length;
+        public int Length => _symbols.Length;
 
         public CharacterString(string symbolsString)
         {
-            symbols = symbolsString.ToCharArray();
+            _symbols = symbolsString.ToCharArray();
         }
 
         public CharacterString(char symbol, int count)
         {
-            symbols = new char[count];
+            _symbols = new char[count];
             for (int i = 0; i < count; i++)
-                symbols[i] = symbol;
+                _symbols[i] = symbol;
         }
 
-        public int CompareTo(CharacterString other) => compareInfo.Compare(symbols, other.symbols);
+        public CharacterString(char[] symbols)
+        {
+            _symbols = new char[symbols.Length];
+            for (int i = 0; i < symbols.Length; i++)
+                _symbols[i] = symbols[i];
+        }
+
+        public CharacterString Concat(CharacterString other)
+        {
+            if (other is null)
+                return this;
+
+            var symbols = new char[other._symbols.Length + Length];
+            for (int i = 0; i < Length; i++)
+            {
+                symbols[i] = _symbols[i];
+            }
+            for (int i = 0; i < other.Length; i++)
+            {
+                symbols[Length + i] = other._symbols[i];
+            }
+
+            return new CharacterString(symbols);
+        }
+
+        public CharacterString ToCharacterString(char[] symbols) => new CharacterString(symbols);
+
+        public char[] ToCharArray()
+        {
+            var result = new char[_symbols.Length];
+            for (int i = 0; i < _symbols.Length; i++)
+            {
+                result[i] = _symbols[i];
+            }
+            return result;
+        }
+
+        public bool Contains(char value)
+        {
+            foreach (var symbol in _symbols)
+            {
+                if (symbol == value)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int CompareTo(CharacterString other) => compareInfo.Compare(_symbols, other._symbols, CompareOptions.StringSort);
 
         public override bool Equals(object obj) => Equals(obj as CharacterString);
 
@@ -36,7 +85,7 @@ namespace String
             {
                 for (int i = 0; i < Length; i++)
                 {
-                    if (symbols[i] != other.symbols[i])
+                    if (_symbols[i] != other._symbols[i])
                         return false;
                 }
                 return true;
@@ -48,7 +97,7 @@ namespace String
         {
             int hash = 23;
             hash = hash * 14 + Length.GetHashCode(); 
-            foreach (var symbol in symbols)
+            foreach (var symbol in _symbols)
             {
                 hash = hash * 14 * symbol.GetHashCode();
             }
