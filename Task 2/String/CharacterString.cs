@@ -11,6 +11,8 @@ namespace String
 
         public int Length => _symbols.Length;
 
+        public char this[int index] => _symbols[index];
+
         public CharacterString(string symbolsString)
         {
             _symbols = symbolsString.ToCharArray();
@@ -48,7 +50,7 @@ namespace String
             return new CharacterString(symbols);
         }
 
-        public CharacterString ToCharacterString(char[] symbols) => new CharacterString(symbols);
+        public static CharacterString ToCharacterString(char[] symbols) => new CharacterString(symbols);
 
         public char[] ToCharArray()
         {
@@ -70,6 +72,18 @@ namespace String
                 }
             }
             return false;
+        }
+
+        public int FindFirst(char value)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (_symbols[i] == value)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         public int CompareTo(CharacterString other) => compareInfo.Compare(_symbols, other._symbols, CompareOptions.StringSort);
@@ -105,6 +119,8 @@ namespace String
             return hash;
         }
 
+        public override string ToString() => new string(_symbols);
+
         public static bool operator ==(CharacterString left, CharacterString right) => left.Equals(right);
 
         public static bool operator !=(CharacterString left, CharacterString right) => !(left == right);
@@ -116,5 +132,7 @@ namespace String
         public static bool operator >=(CharacterString left, CharacterString right) => left.Equals(right) || left > right;
 
         public static bool operator <=(CharacterString left, CharacterString right) => left.Equals(right) || left < right;
+
+        public static CharacterString operator +(CharacterString left, CharacterString right) => left.Concat(right);
     }
 }

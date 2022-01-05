@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_2", "Task_2.csproj", "{9499C07D-AEE0-4DF8-B4F3-C39762C12C0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task_1", "Task_1.csproj", "{9499C07D-AEE0-4DF8-B4F3-C39762C12C0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "String", "..\String\String.csproj", "{7F89E8EF-AD8E-4DC8-A980-E73E69CA20FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String", "..\String\String.csproj", "{7F89E8EF-AD8E-4DC8-A980-E73E69CA20FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
