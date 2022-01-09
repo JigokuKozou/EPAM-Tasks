@@ -234,7 +234,10 @@ namespace Task_1_1
             Randomize(array);
             Console.WriteLine("Сгенерированный массив:");
             PrintInColumn(array);
-            Console.WriteLine("\nОтсортированный массив:");
+            Console.WriteLine();
+            Console.WriteLine($"Max value: {GetMax(array)}"); // Или вывести последний и первый элементы отсортированного массива
+            Console.WriteLine($"Min value: {GetMin(array)}");
+            Console.WriteLine(Environment.NewLine + "Отсортированный массив:");
             Sort(array);
             PrintInColumn(array);
         }
@@ -294,6 +297,32 @@ namespace Task_1_1
             {
                 Console.WriteLine(item);
             }
+        }
+
+        private static int GetMax(IEnumerable<int> collection)
+        {
+            int result = int.MinValue;
+            foreach (var item in collection)
+            {
+                if (item > result)
+                {
+                    result = item;
+                }
+            }
+            return result;
+        }
+
+        private static int GetMin(IEnumerable<int> collection)
+        {
+            int result = int.MaxValue;
+            foreach (var item in collection)
+            {
+                if (item < result)
+                {
+                    result = item;
+                }
+            }
+            return result;
         }
 
         #endregion
