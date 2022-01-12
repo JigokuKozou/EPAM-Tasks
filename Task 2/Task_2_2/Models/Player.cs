@@ -5,13 +5,15 @@ using Task_2_2.Models.Items;
 
 namespace Task_2_2.Models
 {
-    public class Player : Entity, IDamagable
+    public class Player : Entity, IDamagable, IAttacker
     {
         public Player(Point location, Characteristics characteristics) : base("Игрок", location, 'P', characteristics) { }
 
         public Player(int x, int y, Characteristics characteristics) : this(new Point(x, y), characteristics) { }
 
         public bool IsAlive => Characteristics.Health > 0;
+
+        public int Attack(IDamagable target) => target.TakeDamage(Characteristics.Damage);
 
         public override void Collision(Entity other)
         {
