@@ -8,6 +8,8 @@ namespace Task_2_2.Models
 
         public Item Item { get; set; }
 
-        public override string ToString() => "[" + (Creature?.Icon ?? Item?.Icon ?? ' ') + "]";
+        public Entity GetEntity() => Creature ?? Item;
+
+        public override string ToString() => (GetEntity()?.Icon ?? ' ').ToString();
     }
 }
