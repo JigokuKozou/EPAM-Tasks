@@ -4,9 +4,9 @@ namespace Task_2_2.Models
 {
     public class Game
     {
-        private GameField _field;
+        private readonly GameField _field;
 
-        private Player _player;
+        private readonly Player _player;
 
         public Game() : this(5, 5) { }
 
@@ -18,24 +18,24 @@ namespace Task_2_2.Models
         public void Start()
         {
             ArrangeObjectsOnField();
-            Actions input = Actions.None;
-            while (input is not Actions.Exit)
+            ActionType input = ActionType.None;
+            while (input is not ActionType.Exit)
             {
                 ShowField();
 
                 input = GetRequestActionInput();
                 switch (input)
                 {
-                    case Actions.None:
-                    case Actions.Exit:
+                    case ActionType.None:
+                    case ActionType.Exit:
                         break;
-                    case Actions.MoveUp:
+                    case ActionType.MoveUp:
                         break;
-                    case Actions.MoveDown:
+                    case ActionType.MoveDown:
                         break;
-                    case Actions.MoveLeft:
+                    case ActionType.MoveLeft:
                         break;
-                    case Actions.MoveRight:
+                    case ActionType.MoveRight:
                         break;
                     default:
                         break;
@@ -44,24 +44,24 @@ namespace Task_2_2.Models
             }
         }
 
-        private void ShowField() =>
+        private void ShowField()
+        {
             Console.WriteLine(_field);
+        }
 
-        private Actions GetRequestActionInput() =>
+        private ActionType GetRequestActionInput() =>
             Console.ReadKey(intercept: true).Key switch
             {
-                ConsoleKey.W or ConsoleKey.UpArrow => Actions.MoveUp,
-                ConsoleKey.S or ConsoleKey.DownArrow => Actions.MoveDown,
-                ConsoleKey.A or ConsoleKey.LeftArrow => Actions.MoveLeft,
-                ConsoleKey.D or ConsoleKey.RightArrow => Actions.MoveRight,
-                ConsoleKey.Escape => Actions.Exit,
-                _ => Actions.None,
+                ConsoleKey.W or ConsoleKey.UpArrow => ActionType.MoveUp,
+                ConsoleKey.S or ConsoleKey.DownArrow => ActionType.MoveDown,
+                ConsoleKey.A or ConsoleKey.LeftArrow => ActionType.MoveLeft,
+                ConsoleKey.D or ConsoleKey.RightArrow => ActionType.MoveRight,
+                ConsoleKey.Escape => ActionType.Exit,
+                _ => ActionType.None,
             };
 
         private void ArrangeObjectsOnField()
         {
-            _player = new Player(_field.Height / 2, _field.Width / 2);
-            _field[_player.Location.X, _player.Location.X].Creature = _player;
         }
     }
 }
