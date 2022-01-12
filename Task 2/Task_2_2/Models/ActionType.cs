@@ -1,6 +1,6 @@
 ﻿namespace Task_2_2.Models
 {
-    public enum Actions
+    public enum ActionType
     {
         None,
         Exit,
@@ -8,5 +8,9 @@
         MoveDown,
         MoveLeft,
         MoveRight,
+        AttackUp,
+        AttackDown,
+        AttackLeft,
+        AttackRight,
     }
 }
