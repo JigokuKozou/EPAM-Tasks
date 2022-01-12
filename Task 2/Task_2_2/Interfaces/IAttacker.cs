@@ -1,6 +1,6 @@
 ﻿namespace Task_2_2.Interfaces
 {
-    internal interface IAttacker
+    public interface IAttacker
     {
         /// <summary>
         /// Attack target

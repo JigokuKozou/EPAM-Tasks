@@ -1,6 +1,6 @@
 ﻿namespace Task_2_2.Interfaces
 {
-    internal interface IDamagable
+    public interface IDamagable
     {
         bool IsAlive { get; }
 
