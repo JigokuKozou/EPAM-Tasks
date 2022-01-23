@@ -118,19 +118,6 @@ namespace Task_2_2.Models
             _ => Size.Empty,
         };
 
-        private void MoveTo(IMovable creature, Point destination)
-        {
-            if (creature is Entity)
-            {
-                var entity = creature as Entity;
-                _field[entity.Location.X, entity.Location.Y].GameObject = null;
-                _field[destination.X, destination.Y].GameObject = entity;
-
-            }
-
-            creature.Move(destination);
-        }
-
         private void Update()
         {
             Console.Clear();
@@ -182,7 +169,7 @@ namespace Task_2_2.Models
             _enemyAI.Target = _player;
 
             TryAdd(new Zombie(_field.GetRandomFreePointForGameObject()));
-            TryAdd(new Zombie(_field.GetRandomFreePointForGameObject()));
+            TryAdd(new Goblin(_field.GetRandomFreePointForGameObject()));
         }
     }
 }
