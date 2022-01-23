@@ -5,7 +5,7 @@ namespace Task_2_2.Models.Creatures
 {
     public class Player : Creature, IAttacker
     {
-        public Player(Point location, Characteristics characteristics) : base("Игрок", location, 'P', characteristics) { }
+        public Player(Point location, Characteristics characteristics) : base("Игрок", location, '%', characteristics) { }
 
         public Player(int x, int y, Characteristics characteristics) : this(new Point(x, y), characteristics) { }
 
