@@ -19,6 +19,8 @@ namespace Task_2_2.Models
         {
             Console.WriteLine(_field);
             PrintPlayerHUD();
+            Console.WriteLine();
+            PrintRules();
         }
 
         public void PrintPlayerHUD()
@@ -33,11 +35,32 @@ namespace Task_2_2.Models
             Console.WriteLine($"Damage: {charateristics.Damage}");
         }
 
+        public void PrintRules()
+        {
+            Console.WriteLine(
+$@"{_player.Icon} - it is you,
+WASD - Move
+Arrows - Attack
+
+Enemies:
+Z - Zombie (15 damage)
+G - Goblin (10 damage)
+
+Obstacles:
+T - Tree (60 health)
+# - Stone (100 health, 50 armor)
+
+Bonuses:
+C - Cyclist Equipment (30 armor)
+S - Potion of Strength (10 health, 15 damage)
+");
+        }
+
         private static string GetCharacteristic(string name, int current, int maximum, int widthLine)
         {
             int currentWidth = current / (maximum / widthLine);
 
-            return name + Environment.NewLine + GetLine(currentWidth < 0 ? 0 : currentWidth, widthLine) + $"{current}/{maximum}";
+            return name + Environment.NewLine + GetLine(currentWidth < 0 ? 0 : currentWidth, widthLine) + $" {current}/{maximum}";
         }
 
         private static string GetLine(int current, int maximum)
