@@ -171,7 +171,7 @@ namespace Task_2_2.Models
         private void ArrangeItemsOnField()
         {
             TryAdd(new CyclistEquipment(_field.GetRandomFreePointForItem()));
-            TryAdd(new CyclistEquipment(_field.GetRandomFreePointForItem()));
+            TryAdd(new PotionStrength(_field.GetRandomFreePointForItem()));
             TryAdd(new CyclistEquipment(_field.GetRandomFreePointForItem()));
         }
 
