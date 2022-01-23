@@ -68,6 +68,13 @@ namespace Task_2_2.Models
                     default:
                         break;
                 }
+                if (_field.GetCountBonuses() <= 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("!!!Вы победили!!!");
+                    Console.ReadKey();
+                    return;
+                }
                 _enemyAI.MakeMoveEnemies();
                 if (!_player.IsAlive)
                 {
@@ -151,8 +158,8 @@ namespace Task_2_2.Models
         private void ArrangeObstaclesOnField()
         {
             TryAdd(new Tree(_field.GetRandomFreePointForGameObject()));
-            TryAdd(new Tree(_field.GetRandomFreePointForGameObject()));
-            TryAdd(new Tree(_field.GetRandomFreePointForGameObject()));
+            TryAdd(new Stone(_field.GetRandomFreePointForGameObject()));
+            TryAdd(new Stone(_field.GetRandomFreePointForGameObject()));
         }
 
         private void ArrangeItemsOnField()
