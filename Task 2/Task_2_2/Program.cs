@@ -6,7 +6,7 @@ namespace Task_2_2
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            Game game = new();
             game.Start();
         }
     }

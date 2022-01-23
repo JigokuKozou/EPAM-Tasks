@@ -4,11 +4,11 @@ namespace Task_2_2.Models
 {
     public class Room
     {
-        public Entity Creature { get; set; }
+        public Entity GameObject { get; set; }
 
         public Item Item { get; set; }
 
-        public Entity GetEntity() => Creature ?? Item;
+        public Entity GetEntity() => GameObject ?? Item;
 
         public override string ToString() => (GetEntity()?.Icon ?? ' ').ToString();
     }
