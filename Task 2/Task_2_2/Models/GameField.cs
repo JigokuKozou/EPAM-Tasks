@@ -42,6 +42,15 @@ namespace Task_2_2.Models
             set => _rooms[x, y] = value;
         }
 
+        public int GetCountBonuses()
+        {
+            int result = 0;
+            foreach (Room room in _rooms)
+                if (room.Item is not null)
+                    result++;
+            return result;
+        }
+
         public List<Enemy> GetEnemies()
         {
             List<Enemy> result = new();
