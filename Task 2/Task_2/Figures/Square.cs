@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Task_1.Figures
+﻿namespace Task_1.Figures
 {
     public class Square : Rectangle
     {

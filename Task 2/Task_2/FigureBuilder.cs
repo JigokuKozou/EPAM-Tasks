@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using Task_1.Figures;
 
 namespace Task_1
@@ -48,7 +47,7 @@ namespace Task_1
             return new Ring(center, externalRadius, internalRadius);
         }
 
-        private Figures.Rectangle CreateRectangle()
+        private Rectangle CreateRectangle()
         {
             Point location = InputPointRequestUntilItIsCorrect("Введите координаты центра");
             double width = InputDoubleRequestUntilItIsCorrect("Введите ширину: ");
