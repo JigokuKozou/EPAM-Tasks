@@ -31,8 +31,8 @@ namespace Task_1
         private Circle CreateCircle()
         {
             Console.WriteLine("Введите параметры фигуры Круг");
-            Point center = InputPointRequestUntilItIsCorrect("Введите координаты центра");
-            double radius = InputDoubleRequestUntilItIsCorrect("Введите радиус: ");
+            Point center = GetInputPoint("Введите координаты центра");
+            double radius = GetInputDouble("Введите радиус: ");
 
             return new Circle(center, radius);
         }
@@ -40,56 +40,56 @@ namespace Task_1
         private Ring CreateRing()
         {
             Console.WriteLine("Введите параметры фигуры Кольцо");
-            Point center = InputPointRequestUntilItIsCorrect("Введите координаты центра");
-            double externalRadius = InputDoubleRequestUntilItIsCorrect("Введите внешний радиус: ");
-            double internalRadius = InputDoubleRequestUntilItIsCorrect("Введите внутрений радиус: ");
+            Point center = GetInputPoint("Введите координаты центра");
+            double externalRadius = GetInputDouble("Введите внешний радиус: ");
+            double internalRadius = GetInputDouble("Введите внутрений радиус: ");
 
             return new Ring(center, externalRadius, internalRadius);
         }
 
         private Rectangle CreateRectangle()
         {
-            Point location = InputPointRequestUntilItIsCorrect("Введите координаты центра");
-            double width = InputDoubleRequestUntilItIsCorrect("Введите ширину: ");
-            double height = InputDoubleRequestUntilItIsCorrect("Введите высоту: ");
+            Point location = GetInputPoint("Введите координаты центра");
+            double width = GetInputDouble("Введите ширину: ");
+            double height = GetInputDouble("Введите высоту: ");
 
             return new Figures.Rectangle(location, width, height);
         }
 
         private Square CreateSquare()
         {
-            Point location = InputPointRequestUntilItIsCorrect("Введите координаты центра");
-            double sideLength = InputDoubleRequestUntilItIsCorrect("Введите длину стороны: ");
+            Point location = GetInputPoint("Введите координаты центра");
+            double sideLength = GetInputDouble("Введите длину стороны: ");
 
             return new Square(location, sideLength);
         }
 
         private Triangle CreateTriangle()
         {
-            Point first = InputPointRequestUntilItIsCorrect("Введите координаты первой точки");
-            Point second = InputPointRequestUntilItIsCorrect("Введите координаты второй точки");
-            Point third = InputPointRequestUntilItIsCorrect("Введите координаты третьей точки");
+            Point first = GetInputPoint("Введите координаты первой точки");
+            Point second = GetInputPoint("Введите координаты второй точки");
+            Point third = GetInputPoint("Введите координаты третьей точки");
 
             return new Triangle(first, second, third);
         }
 
         private Line CreateLine()
         {
-            Point first = InputPointRequestUntilItIsCorrect("Введите координаты первой точки");
-            Point second = InputPointRequestUntilItIsCorrect("Введите координаты второй точки");
+            Point first = GetInputPoint("Введите координаты первой точки");
+            Point second = GetInputPoint("Введите координаты второй точки");
 
             return new Line(first, second);
         }
 
-        public static Point InputPointRequestUntilItIsCorrect(string message)
+        public static Point GetInputPoint(string message)
         {
             Console.WriteLine(message);
-            int x = InputIntRequestUntilItIsCorrect("X: ");
-            int y = InputIntRequestUntilItIsCorrect("Y: ");
+            int x = GetInputInt("X: ");
+            int y = GetInputInt("Y: ");
             return new Point(x, y);
         }
 
-        public static int InputIntRequestUntilItIsCorrect(string message)
+        public static int GetInputInt(string message)
         {
             int x;
             do
@@ -100,7 +100,7 @@ namespace Task_1
             return x;
         }
 
-        public static double InputDoubleRequestUntilItIsCorrect(string message)
+        public static double GetInputDouble(string message)
         {
             double x;
             do
