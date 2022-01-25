@@ -50,14 +50,12 @@ namespace String
             return new CharacterString(symbols);
         }
 
-        public static CharacterString ToCharacterString(char[] symbols) => new CharacterString(symbols);
-
         public char[] ToCharArray() => (char[])_symbols.Clone();
 
         public bool Contains(char value) => FindFirst(value) >= 0;
 
         /// <summary>
-        /// Looks for the index of the value, if no value was found, it will return -1
+        /// Looks for the first occurrence of a value, if no value was found, it will return -1
         /// </summary>
         /// <param name="value">Search value</param>
         /// <returns>Index of value</returns>
