@@ -87,6 +87,9 @@ namespace String
             if (other is null)
                 return false;
 
+            if (ReferenceEquals(other, this))
+                return true;
+
             if (Length == other.Length)
             {
                 for (int i = 0; i < Length; i++)
