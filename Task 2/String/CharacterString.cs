@@ -32,19 +32,23 @@ namespace String
                 _symbols[i] = symbols[i];
         }
 
-        public CharacterString Concat(CharacterString other)
+        public CharacterString Concat(CharacterString other) => Concat(other.ToCharArray());
+
+        public CharacterString Concat(string other) => Concat(other?.ToCharArray());
+
+        public CharacterString Concat(char[] other)
         {
             if (other is null)
                 return this;
 
-            var symbols = new char[other._symbols.Length + Length];
+            var symbols = new char[other.Length + Length];
             for (int i = 0; i < Length; i++)
             {
                 symbols[i] = _symbols[i];
             }
             for (int i = 0; i < other.Length; i++)
             {
-                symbols[Length + i] = other._symbols[i];
+                symbols[Length + i] = other[i];
             }
 
             return new CharacterString(symbols);
@@ -114,5 +118,7 @@ namespace String
         public static bool operator !=(CharacterString left, CharacterString right) => !(left == right);
 
         public static CharacterString operator +(CharacterString left, CharacterString right) => left.Concat(right);
+        public static CharacterString operator +(CharacterString left, string right) => left.Concat(right);
+        public static CharacterString operator +(CharacterString left, char[] right) => left.Concat(right);
     }
 }
