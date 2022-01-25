@@ -26,7 +26,7 @@ namespace Task_1
                 FiguresType.Square => CreateSquare(),
                 FiguresType.Triangle => CreateTriangle(),
                 FiguresType.Line => CreateLine(),
-                _ => throw new ArgumentOutOfRangeException(nameof(type)),
+                _ => throw new ArgumentException("Unsupported shape type: " + type),
             };
 
         private Circle CreateCircle()
