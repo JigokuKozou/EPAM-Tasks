@@ -54,18 +54,13 @@ namespace String
 
         public char[] ToCharArray() => (char[])_symbols.Clone();
 
-        public bool Contains(char value)
-        {
-            foreach (var symbol in _symbols)
-            {
-                if (symbol == value)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        public bool Contains(char value) => FindFirst(value) >= 0;
 
+        /// <summary>
+        /// Looks for the index of the value, if no value was found, it will return -1
+        /// </summary>
+        /// <param name="value">Search value</param>
+        /// <returns>Index of value</returns>
         public int FindFirst(char value)
         {
             for (int i = 0; i < Length; i++)
