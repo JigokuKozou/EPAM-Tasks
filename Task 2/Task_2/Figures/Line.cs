@@ -14,7 +14,7 @@ namespace Task_1.Figures
             Second = second;
         }
 
-        public override double Length => GetLength(First, Second);
+        public double Length => GetLength(First, Second);
 
         public static double GetLength(Point first, Point second) => 
             Math.Sqrt(Math.Pow(second.X - first.X, 2) - Math.Pow(second.Y - first.Y, 2));
@@ -22,6 +22,7 @@ namespace Task_1.Figures
         public override string GetInfo()
         {
             StringBuilder builder = new(base.GetInfo());
+            builder.AppendLine($"Длинна: {Length}");
             builder.AppendLine($"Первая точка: {First}");
             builder.AppendLine($"Вторая точка: {Second}");
             return builder.ToString();

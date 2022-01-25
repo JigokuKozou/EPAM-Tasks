@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Task_1.Figures
 {
-    public class Triangle : Figure
+    public class Triangle : СlosedFigure
     {
         public Point First { get; }
 
@@ -18,7 +18,7 @@ namespace Task_1.Figures
             Third = third;
         }
 
-        public override double Length => 
+        public override double Perimeter => 
             Line.GetLength(First, Second) + Line.GetLength(Second, Third) + Line.GetLength(Third, First);
 
         public override double Area => 

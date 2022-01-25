@@ -2,7 +2,7 @@
 
 namespace Task_1.Figures
 {
-    public class Rectangle : Figure
+    public class Rectangle : СlosedFigure
     {
         public Point Location { get; }
 
@@ -19,7 +19,7 @@ namespace Task_1.Figures
 
         public override double Area => Width * Height;
 
-        public override double Length => 2.0 * (Width + Height);
+        public override double Perimeter => 2.0 * (Width + Height);
 
         public override string GetInfo()
         {

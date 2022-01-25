@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Task_1.Figures
 {
-    public class Ring : Figure
+    public class Ring : СlosedFigure
     {
         private Circle _external;
         private Circle _internal;
@@ -17,7 +17,7 @@ namespace Task_1.Figures
         public Ring(int x, int y, double externalRadius, double internalRadius) : 
             this(new Point(x, y), externalRadius, internalRadius) { }
 
-        public override double Length => _external.Length + _internal.Length;
+        public override double Perimeter => _external.Perimeter + _internal.Perimeter;
 
         public override double Area => Math.PI * (_external.Radius - _internal.Radius);
 
