@@ -52,15 +52,7 @@ namespace String
 
         public static CharacterString ToCharacterString(char[] symbols) => new CharacterString(symbols);
 
-        public char[] ToCharArray()
-        {
-            var result = new char[_symbols.Length];
-            for (int i = 0; i < _symbols.Length; i++)
-            {
-                result[i] = _symbols[i];
-            }
-            return result;
-        }
+        public char[] ToCharArray() => (char[])_symbols.Clone();
 
         public bool Contains(char value)
         {
