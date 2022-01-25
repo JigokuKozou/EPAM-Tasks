@@ -113,14 +113,6 @@ namespace String
 
         public static bool operator !=(CharacterString left, CharacterString right) => !(left == right);
 
-        public static bool operator >(CharacterString left, CharacterString right) => left.CompareTo(right) == 1;
-
-        public static bool operator <(CharacterString left, CharacterString right) => left.CompareTo(right) == -1;
-
-        public static bool operator >=(CharacterString left, CharacterString right) => left.Equals(right) || left > right;
-
-        public static bool operator <=(CharacterString left, CharacterString right) => left.Equals(right) || left < right;
-
         public static CharacterString operator +(CharacterString left, CharacterString right) => left.Concat(right);
     }
 }
