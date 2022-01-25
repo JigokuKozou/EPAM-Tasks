@@ -50,7 +50,7 @@ namespace Task_1
 
         private Figures.Rectangle CreateRectangle()
         {
-            Point location = InputPointRequestUntilItIsCorrect("Введите координаты точки расположения");
+            Point location = InputPointRequestUntilItIsCorrect("Введите координаты центра");
             double width = InputDoubleRequestUntilItIsCorrect("Введите ширину: ");
             double height = InputDoubleRequestUntilItIsCorrect("Введите высоту: ");
 
@@ -59,7 +59,7 @@ namespace Task_1
 
         private Square CreateSquare()
         {
-            Point location = InputPointRequestUntilItIsCorrect("Введите координаты точки расположения");
+            Point location = InputPointRequestUntilItIsCorrect("Введите координаты центра");
             double sideLength = InputDoubleRequestUntilItIsCorrect("Введите длину стороны: ");
 
             return new Square(location, sideLength);
