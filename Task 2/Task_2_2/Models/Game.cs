@@ -18,7 +18,7 @@ namespace Task_2_2.Models
 
         private EnemyAI _enemyAI;
 
-        public Game() : this(5, 5) { }
+        public Game() : this(8, 8) { }
 
         public Game(int height, int width)
         {
@@ -75,7 +75,9 @@ namespace Task_2_2.Models
                     Console.ReadKey();
                     return;
                 }
+
                 _enemyAI.MakeMoveEnemies();
+
                 if (!_player.IsAlive)
                 {
                     Console.Clear();
