@@ -49,7 +49,7 @@ namespace Task_1
                             ClearFigures();
                             break;
                         default:
-                            throw new NotImplementedException();
+                            throw new NotImplementedException("Unsupported Actions type: " + input);
                     }
                 }
             }
