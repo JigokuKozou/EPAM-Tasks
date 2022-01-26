@@ -14,10 +14,7 @@ namespace Task_1.Figures
             Second = second;
         }
 
-        public double Length => GetLength(First, Second);
-
-        public static double GetLength(Point first, Point second) => 
-            Math.Sqrt(Math.Pow(second.X - first.X, 2) - Math.Pow(second.Y - first.Y, 2));
+        public double Length => First.GetLength(Second);
 
         public override string GetInfo()
         {
