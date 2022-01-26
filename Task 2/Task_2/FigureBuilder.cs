@@ -44,6 +44,13 @@ namespace Task_1
             double externalRadius = GetInputDouble("Введите внешний радиус: ");
             double internalRadius = GetInputDouble("Введите внутрений радиус: ");
 
+            while (externalRadius < internalRadius)
+            {
+                Console.WriteLine("Внешний радиус не может быть меньше внутреннего!");
+                externalRadius = GetInputDouble("Введите внешний радиус: ");
+                internalRadius = GetInputDouble("Введите внутрений радиус: ");
+            }
+
             return new Ring(center, externalRadius, internalRadius);
         }
 

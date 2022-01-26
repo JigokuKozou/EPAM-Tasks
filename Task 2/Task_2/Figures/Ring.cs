@@ -10,6 +10,11 @@ namespace Task_1.Figures
 
         public Ring(Point center, double externalRadius, double internalRadius)
         {
+            if (externalRadius < internalRadius)
+            {
+                throw new ArgumentException($"{nameof(externalRadius)} cannot be less than {nameof(internalRadius)}");
+            }
+
             _external = new Circle(center, externalRadius);
             _internal = new Circle(center, internalRadius);
         }
