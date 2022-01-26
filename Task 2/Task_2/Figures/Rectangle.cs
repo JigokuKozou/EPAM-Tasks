@@ -4,15 +4,15 @@ namespace Task_1.Figures
 {
     public class Rectangle : СlosedFigure
     {
-        public Point Location { get; }
+        public Point Center { get; }
 
         public double Width { get; }
 
         public double Height { get; }
 
-        public Rectangle(Point location, double width, double height)
+        public Rectangle(Point center, double width, double height)
         {
-            Location = location;
+            Center = center;
             Width = width;
             Height = height;
         }
@@ -24,7 +24,7 @@ namespace Task_1.Figures
         public override string GetInfo()
         {
             StringBuilder builder = new(base.GetInfo());
-            builder.AppendLine($"Точка расположения: {Location}");
+            builder.AppendLine($"Точка центра: {Center}");
             builder.AppendLine($"Ширина: {Width}");
             builder.AppendLine($"Высота: {Height}");
             return builder.ToString();
