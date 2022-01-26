@@ -19,7 +19,7 @@ namespace Task_1.Figures
 
         public override double Perimeter => _external.Perimeter + _internal.Perimeter;
 
-        public override double Area => Math.PI * (_external.Radius - _internal.Radius);
+        public override double Area => _external.Area - _internal.Area;
 
         public override string GetInfo()
         {
