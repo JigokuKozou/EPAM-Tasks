@@ -38,22 +38,18 @@ namespace Task_2_2.Models
         public void PrintRules()
         {
             Console.WriteLine(
-$@"{_player.Icon} - it is you,
-WASD - Move
-Arrows - Attack
-
-Enemies:
-Z - Zombie (15 damage)
-G - Goblin (10 damage)
-
-Obstacles:
-T - Tree (60 health)
-# - Stone (100 health, 50 armor)
-
-Bonuses:
-C - Cyclist Equipment (30 armor)
-S - Potion of Strength (10 health, 15 damage)
-");
+                $"{_player.Icon} - it is you" + Environment.NewLine +
+                "WASD - Move" + Environment.NewLine +
+                "Arrows - Attack" + Environment.NewLine +
+                "Enemies:" + Environment.NewLine +
+                "Z - Zombie (15 damage)" + Environment.NewLine +
+                "G - Goblin (10 damage)" + Environment.NewLine +
+                "Obstacles:" + Environment.NewLine +
+                "T - Tree (60 health)" + Environment.NewLine +
+                "# - Stone (100 health, 50 armor)" + Environment.NewLine +
+                "Bonuses:" + Environment.NewLine +
+                "C - Cyclist Equipment (30 armor)" + Environment.NewLine +
+                "S - Potion of Strength (10 health, 15 damage)");
         }
 
         private static string GetCharacteristic(string name, int current, int maximum, int widthLine)
