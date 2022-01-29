@@ -1,0 +1,119 @@
+﻿using System.Collections;
+
+namespace UltimateEscanor.Collections
+{
+    public sealed class DynamicArray<T> : IList<T>
+    {
+        private T[] _array;
+
+        public DynamicArray() : this(8) { }
+
+        public DynamicArray(int capacity)
+        {
+            _array = new T[capacity];
+        }
+
+        public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public int Capacity
+        {
+            get => _array.Length;
+            set
+            {
+                if (value < Count)
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Capacity cannot be less than Count");
+
+                T[] newArray = new T[value];
+                Array.Copy(_array, newArray, Count);
+                _array = newArray;
+            }
+        }
+
+        public int Count { get; private set; }
+
+        public bool IsReadOnly => false;
+
+        public void Add(T item)
+        {
+            if (Capacity == Count)
+                Capacity *= 2;
+
+            _array[Count++] = item;
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                _array[i] = default;
+            }
+        }
+
+        public bool Contains(T item) => _array.Contains(item);
+
+        public void CopyTo(T[] array, int arrayIndex) => Array.Copy(_array, 0, array, arrayIndex, _array.Length);
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int IndexOf(T item)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (_array[i]?.Equals(item) ?? false)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public void Insert(int index, T item)
+        {
+            if (!IsInRange(index))
+                throw new ArgumentOutOfRangeException(nameof(index), index, "index can't be less than Count");
+
+            if (Capacity == Count)
+                Capacity *= 2;
+
+            for (int i = index; i < Count; i++)
+            {
+                _array[i + 1] = _array[i];
+            }
+
+            _array[index] = item;
+        }
+
+        public bool Remove(T item)
+        {
+            if (Contains(item))
+            {
+                Count--;
+                for (int i = IndexOf(item); i < Count; i++)
+                {
+                    _array[i] = _array[i + 1];
+                }
+            }
+
+            return Contains(item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (!IsInRange(index))
+                throw new ArgumentOutOfRangeException(nameof(index), index, "index can't be less than Count");
+
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool IsInRange(int index) => 0 < index && index < Count;
+    }
+}
