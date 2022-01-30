@@ -2,7 +2,7 @@
 
 namespace UltimateEscanor.Collections
 {
-    public sealed class DynamicArray<T> : IList<T>
+    public class DynamicArray<T> : IEnumerable<T>
     {
         private T[] _array;
 
@@ -26,7 +26,7 @@ namespace UltimateEscanor.Collections
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 if (index < 0)
-                    return _array[Count + index];
+                    return _array[Length + index];
                 else
                     return _array[index];
             }
@@ -37,7 +37,7 @@ namespace UltimateEscanor.Collections
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 if (index < 0)
-                    _array[Count + index] = value;
+                    _array[Length + index] = value;
                 else
                     _array[index] = value;
             }
@@ -48,41 +48,41 @@ namespace UltimateEscanor.Collections
             get => _array.Length;
             set
             {
-                if (value < Count)
+                if (value < Length)
                     throw new ArgumentOutOfRangeException(nameof(value), value, "Capacity cannot be less than Count");
 
                 T[] newArray = new T[value];
-                Array.Copy(_array, newArray, Count);
+                Array.Copy(_array, newArray, Length);
                 _array = newArray;
             }
         }
 
-        public int Count { get; private set; }
+        public int Length { get; private set; }
 
         public bool IsReadOnly => false;
 
         public void Add(T item)
         {
-            if (Capacity == Count)
+            if (Capacity == Length)
                 Capacity *= 2;
 
-            _array[Count++] = item;
+            _array[Length++] = item;
         }
 
         public void AddRange(IEnumerable<T> elements)
         {
             var newElements = elements.ToArray();
-            if ((Count + newElements.Length) > Capacity)
+            if ((Length + newElements.Length) > Capacity)
             {
-                Capacity = Count + newElements.Length;
+                Capacity = Length + newElements.Length;
             }
 
-            Array.Copy(newElements, 0, _array, Count, newElements.Length);
+            Array.Copy(newElements, 0, _array, Length, newElements.Length);
         }
 
         public void Clear()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < Length; i++)
             {
                 _array[i] = default;
             }
@@ -92,14 +92,9 @@ namespace UltimateEscanor.Collections
 
         public void CopyTo(T[] array, int arrayIndex) => Array.Copy(_array, 0, array, arrayIndex, _array.Length);
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
         public int IndexOf(T item)
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i]?.Equals(item) ?? false)
                 {
@@ -113,12 +108,12 @@ namespace UltimateEscanor.Collections
         public void Insert(int index, T item)
         {
             if (!IsInRange(index))
-                throw new ArgumentOutOfRangeException(nameof(index), index, "index can't be less than Count");
+                throw new ArgumentOutOfRangeException(nameof(index));
 
-            if (Capacity == Count)
+            if (Capacity == Length)
                 Capacity *= 2;
 
-            for (int i = index; i < Count; i++)
+            for (int i = index; i < Length; i++)
             {
                 _array[i + 1] = _array[i];
             }
@@ -131,11 +126,7 @@ namespace UltimateEscanor.Collections
             bool result = Contains(item);
             if (result)
             {
-                Count--;
-                for (int i = IndexOf(item); i < Count; i++)
-                {
-                    _array[i] = _array[i + 1];
-                }
+                RemoveAt(IndexOf(item));
             }
 
             return result;
@@ -144,16 +135,69 @@ namespace UltimateEscanor.Collections
         public void RemoveAt(int index)
         {
             if (!IsInRange(index))
-                throw new ArgumentOutOfRangeException(nameof(index), index, "index can't be less than Count");
+                throw new ArgumentOutOfRangeException(nameof(index));
 
-            throw new NotImplementedException();
+            Length--;
+            for (int i = index; i < Length; i++)
+            {
+                _array[i] = _array[i + 1];
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public T[] ToArray()
         {
-            throw new NotImplementedException();
+            var result = new T[Length];
+            Array.Copy(_array, 0, result, 0, Length);
+
+            return result;
         }
 
-        private bool IsInRange(int index) => 0 <= index && index < Count;
+        public IEnumerator<T> GetEnumerator() => new DynamicEnumerator(_array, Length);
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        private bool IsInRange(int index) => 0 <= index && index < Length;
+
+        struct DynamicEnumerator : IEnumerator<T>
+        {
+            private readonly T[] _array;
+
+            private readonly int _length;
+
+            private int _position = -1;
+
+            public DynamicEnumerator(T[] array, int length)
+            {
+                _array = array;
+                _length = length;
+            }
+
+            public T Current
+            {
+                get
+                {
+                    if (_position < 0 || _position >= _length)
+                        throw new InvalidOperationException();
+
+                    return _array[_position];
+                }
+            }
+
+            object? IEnumerator.Current => Current;
+
+            public void Dispose() { }
+
+            public bool MoveNext()
+            {
+                bool result = _position < _length - 1;
+
+                if (result)
+                    _position++;
+
+                return result;
+            }
+
+            public void Reset() => _position = -1;
+        }
     }
 }
