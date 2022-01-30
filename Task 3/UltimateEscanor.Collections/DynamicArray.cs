@@ -152,7 +152,7 @@ namespace UltimateEscanor.Collections
             return result;
         }
 
-        public IEnumerator<T> GetEnumerator() => new DynamicEnumerator(_array, Length);
+        public virtual IEnumerator<T> GetEnumerator() => new DynamicEnumerator(_array, Length);
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -160,13 +160,13 @@ namespace UltimateEscanor.Collections
 
         public object Clone() => new DynamicArray<T>(ToArray());
 
-        struct DynamicEnumerator : IEnumerator<T>
+        protected class DynamicEnumerator : IEnumerator<T>
         {
-            private readonly T[] _array;
+            protected readonly T[] _array;
 
-            private readonly int _length;
+            protected readonly int _length;
 
-            private int _position = -1;
+            protected int _position = -1;
 
             public DynamicEnumerator(T[] array, int length)
             {
@@ -189,7 +189,7 @@ namespace UltimateEscanor.Collections
 
             public void Dispose() { }
 
-            public bool MoveNext()
+            public virtual bool MoveNext()
             {
                 bool result = _position < _length - 1;
 
