@@ -13,7 +13,35 @@ namespace UltimateEscanor.Collections
             _array = new T[capacity];
         }
 
-        public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DynamicArray(IEnumerable<T> elements)
+        {
+            _array = elements.ToArray();
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (!IsInRange(Math.Abs(index)))
+                    throw new ArgumentOutOfRangeException(nameof(index));
+
+                if (index < 0)
+                    return _array[Count + index];
+                else
+                    return _array[index];
+            }
+
+            set
+            {
+                if (!IsInRange(Math.Abs(index)))
+                    throw new ArgumentOutOfRangeException(nameof(index));
+
+                if (index < 0)
+                    _array[Count + index] = value;
+                else
+                    _array[index] = value;
+            }
+        }
 
         public int Capacity
         {
@@ -39,6 +67,17 @@ namespace UltimateEscanor.Collections
                 Capacity *= 2;
 
             _array[Count++] = item;
+        }
+
+        public void AddRange(IEnumerable<T> elements)
+        {
+            var newElements = elements.ToArray();
+            if ((Count + newElements.Length) > Capacity)
+            {
+                Capacity = Count + newElements.Length;
+            }
+
+            Array.Copy(newElements, 0, _array, Count, newElements.Length);
         }
 
         public void Clear()
@@ -114,6 +153,6 @@ namespace UltimateEscanor.Collections
             throw new NotImplementedException();
         }
 
-        private bool IsInRange(int index) => 0 < index && index < Count;
+        private bool IsInRange(int index) => 0 <= index && index < Count;
     }
 }
