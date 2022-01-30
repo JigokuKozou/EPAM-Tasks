@@ -2,7 +2,7 @@
 
 namespace UltimateEscanor.Collections
 {
-    public class DynamicArray<T> : IEnumerable<T>
+    public class DynamicArray<T> : IEnumerable<T>, ICloneable
     {
         private T[] _array;
 
@@ -157,6 +157,8 @@ namespace UltimateEscanor.Collections
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         private bool IsInRange(int index) => 0 <= index && index < Length;
+
+        public object Clone() => new DynamicArray<T>(ToArray());
 
         struct DynamicEnumerator : IEnumerator<T>
         {
