@@ -60,8 +60,6 @@ namespace UltimateEscanor.Collections
 
         public int Length { get; private set; }
 
-        public bool IsReadOnly => false;
-
         public void Add(T item)
         {
             if (Capacity == Length)
