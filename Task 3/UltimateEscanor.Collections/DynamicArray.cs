@@ -128,7 +128,8 @@ namespace UltimateEscanor.Collections
 
         public bool Remove(T item)
         {
-            if (Contains(item))
+            bool result = Contains(item);
+            if (result)
             {
                 Count--;
                 for (int i = IndexOf(item); i < Count; i++)
@@ -137,7 +138,7 @@ namespace UltimateEscanor.Collections
                 }
             }
 
-            return Contains(item);
+            return result;
         }
 
         public void RemoveAt(int index)
