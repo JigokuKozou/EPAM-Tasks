@@ -16,13 +16,14 @@ namespace UltimateEscanor.Collections
         public DynamicArray(IEnumerable<T> elements)
         {
             _array = elements.ToArray();
+            Length = _array.Length;
         }
 
         public T this[int index]
         {
             get
             {
-                if (!IsInRange(Math.Abs(index)))
+                if (Math.Abs(index) > Length)
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 if (index < 0)
