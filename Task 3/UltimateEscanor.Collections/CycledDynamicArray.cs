@@ -4,7 +4,7 @@
     {
         public override IEnumerator<T> GetEnumerator()
         {
-            return base.GetEnumerator();
+            return new CycledDynamicEnumerator(_array, Length);
         }
 
         private class CycledDynamicEnumerator : DynamicEnumerator
@@ -13,9 +13,6 @@
 
             public override bool MoveNext()
             {
-                if (_position == -1)
-                    throw new InvalidOperationException();
-
                 if (_position >= _length - 1)
                     Reset();
 
