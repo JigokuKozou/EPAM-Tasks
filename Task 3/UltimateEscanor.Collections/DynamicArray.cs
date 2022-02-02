@@ -4,7 +4,7 @@ namespace UltimateEscanor.Collections
 {
     public class DynamicArray<T> : IEnumerable<T>, ICloneable
     {
-        private T[] _array;
+        protected T[] _array;
 
         public DynamicArray() : this(8) { }
 
