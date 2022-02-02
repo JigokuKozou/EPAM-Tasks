@@ -77,6 +77,8 @@ namespace UltimateEscanor.Collections
             }
 
             Array.Copy(newElements, 0, _array, Length, newElements.Length);
+
+            Length += newElements.Length;
         }
 
         public void Clear()
@@ -112,11 +114,12 @@ namespace UltimateEscanor.Collections
             if (Capacity == Length)
                 Capacity *= 2;
 
-            for (int i = index; i < Length; i++)
+            for (int i = Length; i > index; i--)
             {
-                _array[i + 1] = _array[i];
+                _array[i] = _array[i - 1];
             }
 
+            Length++;
             _array[index] = item;
         }
 
