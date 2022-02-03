@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Drawing;
 using System.Text;
 
 namespace Task_1.Figures
 {
-    public class Ring : Figure
+    public class Ring : СlosedFigure
     {
         private Circle _external;
         private Circle _internal;
 
         public Ring(Point center, double externalRadius, double internalRadius)
         {
+            if (externalRadius < internalRadius)
+            {
+                throw new ArgumentException($"{nameof(externalRadius)} cannot be less than {nameof(internalRadius)}");
+            }
+
             _external = new Circle(center, externalRadius);
             _internal = new Circle(center, internalRadius);
         }
@@ -18,9 +22,9 @@ namespace Task_1.Figures
         public Ring(int x, int y, double externalRadius, double internalRadius) : 
             this(new Point(x, y), externalRadius, internalRadius) { }
 
-        public override double Length => _external.Length + _internal.Length;
+        public override double Perimeter => _external.Perimeter + _internal.Perimeter;
 
-        public override double Area => Math.PI * (_external.Radius - _internal.Radius);
+        public override double Area => _external.Area - _internal.Area;
 
         public override string GetInfo()
         {

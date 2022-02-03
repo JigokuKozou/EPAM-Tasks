@@ -17,17 +17,18 @@ namespace Task_1
     {
         private User _current;
 
-        private FigureBuilder _figureBuilder = new();
+        private FigureFactory _figureBuilder = new();
 
         private Dictionary<string, User> users = new();
 
         public void Start()
         {
-            while (true)
+            Actions input = Actions.None;
+            while (input is not Actions.Exit)
             {
                 Login();
-                Actions input = Actions.None;
-                while (input is not Actions.ChangeUser)
+                input = Actions.None;
+                while (input is not (Actions.Exit or Actions.ChangeUser))
                 {
                     input = GetRequestActionInput();
                     Console.WriteLine();
@@ -35,6 +36,7 @@ namespace Task_1
                     switch (input)
                     {
                         case Actions.None:
+                        case Actions.Exit:
                         case Actions.ChangeUser:
                             break;
                         case Actions.AddFigure:
@@ -46,10 +48,8 @@ namespace Task_1
                         case Actions.ClearFigures:
                             ClearFigures();
                             break;
-                        case Actions.Exit:
-                            return;
                         default:
-                            throw new NotImplementedException();
+                            throw new NotImplementedException("Unsupported Actions type: " + input);
                     }
                 }
             }
