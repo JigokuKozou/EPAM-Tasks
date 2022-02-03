@@ -14,7 +14,7 @@ namespace Task_1
         Line,
     }
 
-    public class FigureBuilder
+    public class FigureFactory
     {
         public Figure BuildFigure(FiguresType type) =>
             type switch
