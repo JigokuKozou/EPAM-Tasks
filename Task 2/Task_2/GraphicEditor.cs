@@ -17,7 +17,7 @@ namespace Task_1
     {
         private User _current;
 
-        private FigureBuilder _figureBuilder = new();
+        private FigureFactory _figureBuilder = new();
 
         private Dictionary<string, User> users = new();
 
