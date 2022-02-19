@@ -6,9 +6,9 @@ var git = new Git(trackedDirectoryPath);
 var mode = ConsoleUI.RequestStartMode();
 if (mode is ModeType.Observation)
 {
-    git.OnAddedFile += (file) => Console.WriteLine("Added: " + file.FullName);
-    git.OnDeletedFile += (file) => Console.WriteLine("Deleted: " + file.FullName);
-    git.OnUpdateFile += (file) => Console.WriteLine("Updated: " + file.FullName);
+    git.OnAddedFile += (file) => Console.WriteLine($"{ DateTime.Now } Added: { file.Name }");
+    git.OnDeletedFile += (file) => Console.WriteLine($"{ DateTime.Now } Deleted: { file.Name}");
+    git.OnUpdateFile += (file) => Console.WriteLine($"{ DateTime.Now } Updated: { file.Name}");
 
     git.StartTrackDirectoryAsync();
 }

@@ -9,13 +9,13 @@ namespace File_Managment_System
 
         private const string NameGitDirectoryFiles = "Files";
 
+        private const string NameMarkDeletedFiles = "Deleted";
+
         private readonly Dictionary<FileInfo, FileInfo> _originalCopyFilesPairs = new();
 
         private DirectoryInfo _trackedDirectory;
 
         private string _gitDirectoryFilesPath;
-
-        private IEnumerable<FileInfo> _allTxtFilesInfo;
 
         public Git(string TrackedDirectoryPath)
         {
@@ -24,12 +24,14 @@ namespace File_Managment_System
             if (!TrackedDirectory.Exists)
                 throw new DirectoryNotFoundException(TrackedDirectoryPath);
 
-            _allTxtFilesInfo = GetAllFiles()
-            .Where(file => file.EndsWith(".txt"))
-            .Select(filePath => new FileInfo(filePath));
+            
         }
 
         public string GitDirectoryPath { get; private set; }
+
+        private IEnumerable<FileInfo> AllTxtFilesInfo => GetAllFiles()
+            .Where(file => file.EndsWith(".txt"))
+            .Select(filePath => new FileInfo(filePath));
 
         private DirectoryInfo TrackedDirectory
         {
@@ -59,7 +61,7 @@ namespace File_Managment_System
             {
                 var directories = new DirectoryInfo(_gitDirectoryFilesPath).GetDirectories();
 
-                foreach (var fileInfo in _allTxtFilesInfo)
+                foreach (var fileInfo in AllTxtFilesInfo)
                 {
                     var directory = directories
                         .FirstOrDefault(directory => directory.Name == fileInfo.Name);
@@ -69,7 +71,8 @@ namespace File_Managment_System
                         var actualFile = directory.GetFiles()
                             .MaxBy(file => file.CreationTime);
 
-                        _originalCopyFilesPairs.Add(fileInfo, actualFile);
+                        if (actualFile is not null && actualFile.Name != NameMarkDeletedFiles)
+                            _originalCopyFilesPairs.Add(fileInfo, actualFile);
                     }
                 }
             }
@@ -92,7 +95,8 @@ namespace File_Managment_System
                     .Where(file => file.CreationTime <= destinationTime)
                     .MaxBy(file => file.CreationTime);
 
-                displayFile.CopyTo(Path.Combine(TrackedDirectory.FullName, directory.Name));
+                if (displayFile is not null && displayFile.Name != NameMarkDeletedFiles)
+                    displayFile.CopyTo(Path.Combine(TrackedDirectory.FullName, directory.Name));
             }
         }
 
@@ -114,8 +118,10 @@ namespace File_Managment_System
         {
             while (true)
             {
-                UntrackedDeletedFiles(_allTxtFilesInfo);
-                TrackUntrackedFiles(_allTxtFilesInfo);
+                var allTxtFilesInfo = AllTxtFilesInfo;
+
+                UntrackDeletedFiles(allTxtFilesInfo);
+                TrackUntrackedFiles(allTxtFilesInfo);
 
                 CheckFilesContent();
 
@@ -133,7 +139,7 @@ namespace File_Managment_System
                 }
             }
 
-            void UntrackedDeletedFiles(IEnumerable<FileInfo> filesInfo)
+            void UntrackDeletedFiles(IEnumerable<FileInfo> filesInfo)
             {
                 foreach (var originalCopyPair in _originalCopyFilesPairs)
                 {
@@ -166,9 +172,12 @@ namespace File_Managment_System
         private void DeleteTrackedFile(FileInfo fileInfo)
         {
             if (!_originalCopyFilesPairs.ContainsKey(fileInfo))
-                throw new ArgumentException(fileInfo.FullName);
+                throw new ArgumentException(fileInfo.FullName + " is not tracked file");
 
             _originalCopyFilesPairs.Remove(fileInfo);
+
+            CreateDeletedMark(fileInfo);
+
             OnDeletedFile(fileInfo);
         }
 
@@ -193,6 +202,17 @@ namespace File_Managment_System
             string copyName = DateTime.Now.ToString("dd_MM_yyyy HH_mm_ss") + file.Extension;
 
             return file.CopyTo(Path.Combine(fileDirectory, copyName));
+        }
+
+        private void CreateDeletedMark(FileInfo file)
+        {
+            string fileDirectory = Path.Combine(_gitDirectoryFilesPath, file.Name);
+            if (!Directory.Exists(fileDirectory))
+                throw new ArgumentException("FileDirectory is not exist", nameof(file));
+
+            string copyName = NameMarkDeletedFiles;
+
+            File.Create(Path.Combine(fileDirectory, copyName));
         }
 
         private string[] GetAllFiles()
