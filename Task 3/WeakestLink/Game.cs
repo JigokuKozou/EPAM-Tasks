@@ -2,7 +2,7 @@
 {
     public class Game
     {
-        private List<People> _peoples;
+        private List<Person> _peoples;
 
         private int _offset;
 
@@ -11,7 +11,7 @@
             _peoples = new(peopleAmount);
             for (int i = 0; i < peopleAmount; i++)
             {
-                _peoples.Add(new People(i + 1));
+                _peoples.Add(new Person(i + 1));
             }
 
             _offset = offset;
