@@ -1,10 +1,10 @@
 ﻿namespace WeakestLink
 {
-    internal struct People
+    internal struct Person
     {
         public int ID { get; }
 
-        public People(int iD)
+        public Person(int iD)
         {
             ID = iD;
         }
