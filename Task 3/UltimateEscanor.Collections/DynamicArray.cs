@@ -23,7 +23,7 @@ namespace UltimateEscanor.Collections
         {
             get
             {
-                if (Math.Abs(index) > Length)
+                if ( !(-Length <= index && index < Length) )
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 if (index < 0)
