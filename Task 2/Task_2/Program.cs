@@ -37,20 +37,26 @@ namespace Task_1
             CharacterString hello = new("Hello");
             CharacterString world = new(" World!");
 
-            Console.WriteLine($"\"{abc}\" > \"{hello}\": {abc > hello}"); // Сравнение
+            Console.WriteLine($"\"{abc}\" == \"{hello}\": {abc == hello}"); // Сравнение
 
+            Console.WriteLine();
+            Console.WriteLine("Конкатенация CharacterString c: CharacterString, char[], string");
             Console.WriteLine($"\"{hello}\" + \"{world}\": \"{hello + world}\""); // Конкатенация
+            Console.WriteLine($"\"{hello}\" + \"{world}\": \"{hello + world.ToCharArray()}\"");
+            Console.WriteLine($"\"{hello}\" + \"{world}\": \"{hello + world.ToString()}\"");
+            Console.WriteLine();
 
             Console.Write($"Input search char in \"{hello}\": ");
             char search = Console.ReadKey().KeyChar;
             Console.WriteLine();
             Console.WriteLine($"Index '{search}' in \"{hello}\": {hello.FindFirst(search)}"); // Поиск по символу
+            Console.WriteLine();
 
             Console.Write("Input any string: ");
             char[] symbols = Console.ReadLine().ToCharArray();
-            CharacterString symbolsString = CharacterString.ToCharacterString(symbols); // Конверцтация в/из массива символов
+            CharacterString symbolsString = new CharacterString(symbols); // Конверцтация в/из массива символов
             Console.WriteLine($"CharacterString: {symbolsString}");
-            Console.WriteLine($"Back: {symbolsString.ToCharArray()}");
+            Console.WriteLine($"ToCharArray: {symbolsString.ToCharArray()}");
             Console.ReadLine();
         }
 

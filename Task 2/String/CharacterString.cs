@@ -32,48 +32,37 @@ namespace String
                 _symbols[i] = symbols[i];
         }
 
-        public CharacterString Concat(CharacterString other)
+        public CharacterString Concat(CharacterString other) => Concat(other.ToCharArray());
+
+        public CharacterString Concat(string other) => Concat(other?.ToCharArray());
+
+        public CharacterString Concat(char[] other)
         {
             if (other is null)
                 return this;
 
-            var symbols = new char[other._symbols.Length + Length];
+            var symbols = new char[other.Length + Length];
             for (int i = 0; i < Length; i++)
             {
                 symbols[i] = _symbols[i];
             }
             for (int i = 0; i < other.Length; i++)
             {
-                symbols[Length + i] = other._symbols[i];
+                symbols[Length + i] = other[i];
             }
 
             return new CharacterString(symbols);
         }
 
-        public static CharacterString ToCharacterString(char[] symbols) => new CharacterString(symbols);
+        public char[] ToCharArray() => (char[])_symbols.Clone();
 
-        public char[] ToCharArray()
-        {
-            var result = new char[_symbols.Length];
-            for (int i = 0; i < _symbols.Length; i++)
-            {
-                result[i] = _symbols[i];
-            }
-            return result;
-        }
+        public bool Contains(char value) => FindFirst(value) >= 0;
 
-        public bool Contains(char value)
-        {
-            foreach (var symbol in _symbols)
-            {
-                if (symbol == value)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// Looks for the first occurrence of a value, if no value was found, it will return -1
+        /// </summary>
+        /// <param name="value">Search value</param>
+        /// <returns>Index of value</returns>
         public int FindFirst(char value)
         {
             for (int i = 0; i < Length; i++)
@@ -94,6 +83,9 @@ namespace String
         {
             if (other is null)
                 return false;
+
+            if (ReferenceEquals(other, this))
+                return true;
 
             if (Length == other.Length)
             {
@@ -125,14 +117,8 @@ namespace String
 
         public static bool operator !=(CharacterString left, CharacterString right) => !(left == right);
 
-        public static bool operator >(CharacterString left, CharacterString right) => left.CompareTo(right) == 1;
-
-        public static bool operator <(CharacterString left, CharacterString right) => left.CompareTo(right) == -1;
-
-        public static bool operator >=(CharacterString left, CharacterString right) => left.Equals(right) || left > right;
-
-        public static bool operator <=(CharacterString left, CharacterString right) => left.Equals(right) || left < right;
-
         public static CharacterString operator +(CharacterString left, CharacterString right) => left.Concat(right);
+        public static CharacterString operator +(CharacterString left, string right) => left.Concat(right);
+        public static CharacterString operator +(CharacterString left, char[] right) => left.Concat(right);
     }
 }
