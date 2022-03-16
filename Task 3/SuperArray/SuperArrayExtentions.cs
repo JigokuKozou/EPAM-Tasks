@@ -1,4 +1,8 @@
-﻿namespace SuperArray
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SuperArray
 {
     public static class SuperArrayExtentions
     {
