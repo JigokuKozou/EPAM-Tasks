@@ -1,0 +1,37 @@
+body {
+	background-color: #333333;
+}
+
+.cursor {
+	margin-top: 50px;
+	padding: 20px 0;
+
+	color: white;
+	font-weight: normal;
+	background-color: #88B7D5;
+	border: 5px solid #C2E1F5;
+
+	text-align: center;
+	position: relative;
+}
+
+.cursor::after, .cursor::before {
+  content: '';
+  position: absolute;
+  width: 0; height: 0;
+  
+  margin: 0 auto;
+  right: 0; left: 0;
+}
+
+.cursor::after {
+  top: -60px;
+  border: 30px solid transparent;
+  border-bottom: 30px solid #88B7D5;
+}
+
+.cursor::before {
+  top: -76px;
+  border: 38px solid transparent;
+  border-bottom: 38px solid #BFDDF1;
+}

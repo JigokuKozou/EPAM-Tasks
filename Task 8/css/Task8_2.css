@@ -1,0 +1,45 @@
+.registration {
+	font-family: Arial;
+	width: 400px;
+	border: 3px solid #0074B0;
+	background-color: #0690CF;
+	color: white;
+}
+
+hr {
+	border: none;
+	background-color: white;
+	height: 1px;
+}
+
+header {
+	margin: 20px 20px 0px 20px;
+}
+
+h3{
+	font-weight: normal;
+}
+
+.registration > div {
+	margin: 20px 40px 20px 20px;
+}
+
+input {
+	width: 305px;
+}
+
+.pair > div > input {
+	width: 100%
+}
+
+.pair > div{
+ 	display: inline-block;
+	width: 40%;
+	margin: 0 30px 0 0;
+}
+
+button {
+	height: 30px;
+	background-color: #FFDF7F;
+	border: none;
+}
